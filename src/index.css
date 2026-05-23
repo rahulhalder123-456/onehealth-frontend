@@ -1,0 +1,11 @@
+@import './styles/App.css';
+@import './styles/Components.css';
+@import './styles/Calendar.css';
+
+/* Simple helper for layout spacing and container centering */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
