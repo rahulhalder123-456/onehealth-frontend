@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import CalendarView from './components/CalendarView';
 import HistoryRecords from './components/HistoryRecords';
+import Prescriptions from './components/Prescriptions';
 import Chat from './components/Chat';
 import Profile from './components/Profile';
 import Toast from './components/Toast';
@@ -83,6 +84,8 @@ export default function App() {
           onUpdateAvailability={handleUpdateAvailability} />;
       case 'records':
         return <HistoryRecords appointmentsData={appointments} />;
+      case 'prescriptions':
+        return <Prescriptions appointmentsData={appointments} showNotification={showNotification} />;
       case 'chat':
         return <Chat showNotification={showNotification} />;
       case 'profile':
@@ -98,6 +101,7 @@ export default function App() {
     dashboard: 'Overview Dashboard',
     calendar: 'Clinic Calendar & Availability',
     records: 'Patient Encounters',
+    prescriptions: 'Prescriptions',
     chat: 'Patient Conversations',
     profile: 'My Profile',
   };
@@ -121,6 +125,7 @@ export default function App() {
             ['dashboard', 'Dashboard'],
             ['calendar', 'Calendar'],
             ['records', 'Patient Records'],
+            ['prescriptions', 'Prescriptions'],
             ['chat', 'Patient Chat'],
           ].map(([tab, label]) => (
             <li className="menu-item" key={tab}><button className={`menu-link ${activeTab === tab ? 'active' : ''}`}

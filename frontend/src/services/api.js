@@ -23,6 +23,19 @@ export async function apiRequest(path, options = {}) {
   return response.status === 204 ? null : response.json();
 }
 
+async function apiBlobRequest(path) {
+  const headers = new Headers();
+  const token = getToken();
+  if (token) headers.set('Authorization', `Bearer ${token}`);
+
+  const response = await fetch(`${API_BASE_URL}${path}`, { headers });
+  if (!response.ok) {
+    const payload = await response.json().catch(() => ({}));
+    throw new Error(payload.detail || 'Unable to load prescription image');
+  }
+  return response.blob();
+}
+
 export const authApi = {
   sendOtp: (email) => apiRequest('/auth/send-otp', {
     method: 'POST',
@@ -68,4 +81,15 @@ export const chatApi = {
     const wsBase = API_BASE_URL.replace(/^http/, 'ws');
     return `${wsBase}/chat/ws/${id}?token=${encodeURIComponent(getToken())}`;
   },
+};
+
+export const prescriptionsApi = {
+  upload: (formData) => apiRequest('/prescriptions/upload', {
+    method: 'POST',
+    body: formData,
+  }),
+  listForPatient: (patientId) => apiRequest(`/prescriptions/patients/${patientId}`),
+  get: (prescriptionId) => apiRequest(`/prescriptions/${prescriptionId}`),
+  getImageBlob: (prescriptionId) => apiBlobRequest(`/prescriptions/${prescriptionId}/image`),
+  delete: (prescriptionId) => apiRequest(`/prescriptions/${prescriptionId}`, { method: 'DELETE' }),
 };

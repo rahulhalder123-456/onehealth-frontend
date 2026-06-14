@@ -1285,3 +1285,311 @@
   color: var(--text-light);
   font-style: italic;
 }
+
+/* ==========================================
+   PRESCRIPTION MANAGEMENT STYLES
+   ========================================== */
+.prescriptions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.prescription-toolbar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 20px;
+}
+
+.prescription-select {
+  max-width: 280px;
+}
+
+.prescription-send-btn {
+  width: auto;
+  min-width: 170px;
+}
+
+.prescription-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.prescription-count {
+  min-width: 30px;
+  height: 26px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  color: var(--primary-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.prescription-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.prescription-card {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.prescription-card:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.prescription-thumb {
+  width: 128px;
+  height: 104px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #f8fafc;
+  cursor: pointer;
+  color: var(--text-light);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.prescription-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.prescription-thumb:hover img {
+  transform: scale(1.05);
+}
+
+.prescription-card-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prescription-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.prescription-patient {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.prescription-meta,
+.prescription-actions {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.prescription-notes {
+  color: var(--text-medium);
+  font-size: 13px;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.prescription-badge {
+  flex-shrink: 0;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.prescription-badge.patient {
+  color: var(--primary-color);
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
+}
+
+.prescription-badge.doctor {
+  color: var(--red);
+  background: var(--red-light);
+  border: 1px solid var(--red-border);
+}
+
+.prescription-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.prescription-actions button,
+.prescription-modal-header button,
+.prescription-lightbox-close {
+  border: 1px solid var(--border-color);
+  background: white;
+  color: var(--text-medium);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.prescription-actions button:hover {
+  color: var(--red);
+  border-color: var(--red-border);
+  background: var(--red-light);
+}
+
+.prescription-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+}
+
+.prescription-modal {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 56px);
+  overflow-y: auto;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 24px;
+}
+
+.prescription-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.prescription-dropzone {
+  min-height: 132px;
+  border: 2px dashed var(--primary-border);
+  background: var(--primary-light);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.prescription-dropzone.dragging {
+  background: #cffafe;
+  border-color: var(--primary-color);
+  transform: scale(1.01);
+}
+
+.prescription-dropzone input {
+  display: none;
+}
+
+.prescription-dropzone span {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.prescription-textarea {
+  min-height: 96px;
+}
+
+.prescription-image-viewer {
+  width: min(900px, 100%);
+  max-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.prescription-image-viewer img {
+  width: 100%;
+  max-height: calc(100vh - 160px);
+  object-fit: contain;
+  background: white;
+  border-radius: var(--radius);
+}
+
+.prescription-lightbox-caption {
+  width: 100%;
+  background: white;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--text-medium);
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .prescription-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .prescription-card {
+    grid-template-columns: 104px 1fr;
+  }
+
+  .prescription-thumb {
+    width: 104px;
+    height: 92px;
+  }
+}
+
+@media (max-width: 640px) {
+  .prescription-card {
+    grid-template-columns: 1fr;
+  }
+
+  .prescription-thumb {
+    width: 100%;
+    height: 180px;
+  }
+
+  .prescription-card-top,
+  .prescription-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
