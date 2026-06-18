@@ -12,11 +12,6 @@ dist
 dist-ssr
 *.local
 .env
-.venv
-__pycache__/
-*.py[cod]
-onehealth-backend/uploads/*
-!onehealth-backend/uploads/.gitkeep
 
 # Editor directories and files
 .vscode/*
