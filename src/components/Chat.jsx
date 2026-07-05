@@ -11,6 +11,8 @@ export default function Chat({ showNotification }) {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef(null);
   const socketRef = useRef(null);
   const messagesEndRef = useRef(null);
 
@@ -56,6 +58,24 @@ export default function Chat({ showNotification }) {
     }
   };
 
+  const handleFileSelect = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const { url } = await chatApi.uploadFile(file);
+      const ext = file.name.split('.').pop().toLowerCase();
+      const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext);
+      const markdown = isImage ? `![${file.name}](${url})` : `[Attachment: ${file.name}](${url})`;
+      setInputText((prev) => prev ? `${prev}\n\n${markdown}` : markdown);
+    } catch (error) {
+      showNotification({ title: 'Upload failed', message: error.message });
+    } finally {
+      setUploading(false);
+      event.target.value = '';
+    }
+  };
+
   const filtered = conversations.filter((item) =>
     item.patientName.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -94,6 +114,10 @@ export default function Chat({ showNotification }) {
           </div>
         ))}<div ref={messagesEndRef} /></div>
         <div className="chat-input-area"><form onSubmit={handleSendMessage} className="chat-input-form">
+          <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileSelect} />
+          <button type="button" className="btn-icon" onClick={() => fileInputRef.current?.click()} disabled={uploading} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem', padding: '0 10px' }}>
+            {uploading ? '⏳' : '📎'}
+          </button>
           <textarea className="chat-textarea" placeholder="Type your clinical message..." value={inputText}
             onChange={(event) => setInputText(event.target.value)}
             onKeyDown={(event) => {

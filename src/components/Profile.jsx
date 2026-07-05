@@ -20,7 +20,7 @@ export default function Profile({ profile, schedule, onSaveSchedule, onProfileUp
     setSaving(true);
     try {
       await onSaveSchedule(draftSchedule);
-      showNotification({ title: 'Schedule saved', message: 'Weekly availability is now stored in PostgreSQL.' });
+      showNotification({ title: 'Schedule saved', message: 'Weekly availability is now saved.' });
     } catch (error) {
       showNotification({ title: 'Schedule not saved', message: error.message });
     } finally {

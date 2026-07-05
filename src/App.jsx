@@ -8,7 +8,7 @@ import Prescriptions from './components/Prescriptions';
 import Chat from './components/Chat';
 import Profile from './components/Profile';
 import Toast from './components/Toast';
-import { appointmentsApi, clearToken, doctorApi, getToken } from './services/api';
+import { appointmentsApi, authApi, clearToken, doctorApi, getToken } from './services/api';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -18,6 +18,12 @@ export default function App() {
   const [availability, setAvailability] = useState({});
   const [weeklyAvailability, setWeeklyAvailability] = useState({});
   const [loading, setLoading] = useState(Boolean(getToken()));
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const showNotification = useCallback((data) => setToast(data), []);
 
@@ -53,8 +59,8 @@ export default function App() {
     await loadPortalData();
   };
 
-  const handleLogout = () => {
-    clearToken();
+  const handleLogout = async () => {
+    await authApi.logout();
     setUser(null);
     setAppointments([]);
     showNotification({ title: 'Logged out', message: 'Secure clinical session ended.' });
@@ -148,9 +154,11 @@ export default function App() {
       <main className="main-content">
         <header className="top-bar">
           <h2 className="page-title">{titles[activeTab]}</h2>
-          <div className="top-bar-right"><div className="status-pill"><span className="status-dot" />API Online</div>
-            <div className="top-bar-date">{new Date().toLocaleDateString('en-US', {
+          <div className="top-bar-right">
+            <div className="top-bar-date">{currentTime.toLocaleDateString('en-US', {
               weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+            })} &bull; {currentTime.toLocaleTimeString('en-US', {
+              hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'
             })}</div></div>
         </header>
         <div className="content-viewport">{renderContent()}</div>

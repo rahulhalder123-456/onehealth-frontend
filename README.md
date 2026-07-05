@@ -40,10 +40,9 @@ npm run dev
 
 Open `http://localhost:5173`.
 
-Development login:
-
-- Email: `sarah.carter@onehealth.com`
-- OTP: `123456`
+Development login uses a registered doctor email. Request an OTP from the login
+screen, then use the latest code delivered by email or printed in the backend
+console when SMTP is not configured.
 
 ## Integration
 

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@600;700&family=Heebo:wght@400;600&display=swap');
+
 /* =============================================
    GLOBAL RESET & TYPOGRAPHY
    ============================================= */
@@ -10,7 +12,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: 'Heebo', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   background-color: var(--bg-app);
@@ -26,27 +28,26 @@ button, input, select, textarea {
    DESIGN TOKENS
    ============================================= */
 :root {
-  /* Primary — Deep Medical Teal-Blue (not a generic blue) */
-  --primary-color: #0e7490;        /* cyan-700 — calm, medical, trustworthy */
-  --primary-hover: #0c6278;
-  --primary-light: #ecfeff;
-  --primary-border: #a5f3fc;
+  --primary-color: #ff4848;
+  --primary-hover: #f44336;
+  --primary-light: #fff5f6;
+  --primary-border: #ff92a5;
 
-  /* App Background — off-white with a faint warm tone */
-  --bg-app: #f5f7fa;
+  /* App Background */
+  --bg-app: #fbfbfc;
   --bg-card: #ffffff;
-  --bg-subtle: #f0f4f8;
+  --bg-subtle: #f7f8fb;
 
   /* Text */
-  --text-dark: #111827;            /* near-black, maximum legibility */
-  --text-medium: #374151;          /* gray-700 */
-  --text-light: #6b7280;           /* gray-500 */
-  --text-muted: #9ca3af;           /* gray-400 */
+  --text-dark: #07193c;
+  --text-medium: #222222;
+  --text-light: #8b8b8b;
+  --text-muted: #8b8b8b;
 
   /* Borders */
-  --border-color: #e5e7eb;         /* gray-200 — clean, not harsh */
-  --border-strong: #d1d5db;        /* gray-300 */
-  --border-focus: #0e7490;
+  --border-color: #e5e7eb;
+  --border-strong: #d7dce5;
+  --border-focus: #f2474b;
 
   /* Sub-Brand Colors */
   --tanaya-color: #7c3aed;         /* violet-700 */
@@ -79,17 +80,18 @@ button, input, select, textarea {
   --radius: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
+  --border-radius: var(--radius);
+  --border-radius-lg: var(--radius-lg);
 
   /* Sidebar */
-  --sidebar-bg: #0a1628;           /* very deep navy — premium, not flat black */
+  --sidebar-bg: #ffffff;
   --sidebar-width: 256px;
 
-  /* Red Accent — Medical / Urgent */
-  --red: #c0162c;
-  --red-hover: #a01224;
-  --red-light: #fff1f2;
-  --red-border: #fecdd3;
-  --red-muted: rgba(192, 22, 44, 0.15);
+  --red: #ff4848;
+  --red-hover: #f44336;
+  --red-light: #fff5f6;
+  --red-border: #ff92a5;
+  --red-muted: rgba(255, 72, 72, 0.14);
 }
 
 /* =============================================
@@ -110,7 +112,11 @@ html, body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: var(--bg-app);
+  background:
+    linear-gradient(135deg, rgba(242, 71, 75, 0.05) 0%, rgba(255, 255, 255, 0.78) 36%, rgba(11, 23, 54, 0.03) 100%),
+    radial-gradient(circle, rgba(11, 23, 54, 0.10) 1px, transparent 1.4px),
+    var(--bg-app);
+  background-size: 100% 100%, 32px 32px, 100% 100%;
 }
 
 /* =============================================
@@ -118,7 +124,8 @@ html, body {
    ============================================= */
 .sidebar {
   width: var(--sidebar-width);
-  background-color: var(--sidebar-bg);
+  background: #ffffff;
+  border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -126,26 +133,23 @@ html, body {
   position: sticky;
   top: 0;
   overflow-y: auto;
-  /* Subtle right border glow */
-  box-shadow: 1px 0 0 rgba(255,255,255,0.05);
+  box-shadow: none;
 }
 
-/* Brand Logo Area — the crimson brand zone */
 .sidebar-header {
-  padding: 24px 24px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  background: linear-gradient(160deg, #8b0a1e 0%, #650818 60%, #3d060f 100%);
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border-color);
+  background: #ffffff;
   position: relative;
   flex-shrink: 0;
 }
 
-/* Teal accent stripe at very bottom of the red zone */
 .sidebar-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(14,116,144,0.6) 0%, transparent 100%);
+  display: none;
 }
 
 .brand-logo-wrap {
@@ -156,45 +160,47 @@ html, body {
 }
 
 .brand-icon {
-  width: 34px;
-  height: 34px;
-  background: linear-gradient(135deg, #c0162c 0%, #0e7490 100%);
-  border-radius: 9px;
+  width: 38px;
+  height: 38px;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;
   font-size: 16px;
-  box-shadow: 0 2px 10px rgba(192, 22, 44, 0.4);
+  box-shadow: none;
   flex-shrink: 0;
 }
 
 .brand-title {
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-family: 'Fira Sans', 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.3px;
+  color: var(--primary-color);
+  letter-spacing: 0;
   line-height: 1;
 }
 
 .brand-title span {
-  color: #fda4af; /* rose-300 — bright on dark crimson bg */
+  color: var(--primary-color);
 }
 
 .brand-subtitle {
   font-size: 10px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.45);
+  font-weight: 700;
+  color: var(--text-light);
   text-transform: uppercase;
   letter-spacing: 1.4px;
   margin-left: 44px;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 /* Nav Menu */
 .sidebar-menu {
   list-style: none;
-  padding: 16px 12px;
+  padding: 16px 0;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -206,8 +212,8 @@ html, body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  color: rgba(255,255,255,0.25);
-  padding: 12px 12px 6px;
+  color: var(--text-light);
+  padding: 12px 24px 6px;
 }
 
 .menu-item {
@@ -218,11 +224,11 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
-  color: rgba(255,255,255,0.6);
-  border-radius: var(--radius);
+  padding: 12px 24px;
+  color: var(--text-medium);
+  border-radius: 0;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.15s ease;
   cursor: pointer;
   border: none;
@@ -240,29 +246,29 @@ html, body {
 }
 
 .menu-link:hover {
-  background-color: rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.9);
+  background-color: var(--bg-subtle);
+  color: var(--primary-color);
 }
 
 .menu-link.active {
-  background: linear-gradient(90deg, rgba(192,22,44,0.22) 0%, rgba(192,22,44,0.06) 100%);
-  color: #fda4af; /* rose-300 — warm readable active label */
-  font-weight: 600;
-  border-left: 2.5px solid var(--red);
-  padding-left: 10px;
+  background: var(--primary-light);
+  color: var(--primary-color);
+  font-weight: 700;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
 }
 
 /* Sidebar Divider */
 .sidebar-divider {
   height: 1px;
-  background: rgba(255,255,255,0.07);
+  background: var(--border-color);
   margin: 8px 12px;
 }
 
 /* Sidebar Footer — Doctor card */
 .sidebar-footer {
   padding: 16px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid var(--border-color);
 }
 
 .doctor-profile-brief {
@@ -270,8 +276,9 @@ html, body {
   align-items: center;
   gap: 10px;
   padding: 10px;
-  border-radius: var(--radius);
-  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
   margin-bottom: 10px;
 }
 
@@ -279,7 +286,7 @@ html, body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #c0162c, #0e7490);
+  background: #f2474b;
   color: white;
   display: flex;
   align-items: center;
@@ -297,7 +304,7 @@ html, body {
 .doc-name {
   font-size: 13px;
   font-weight: 700;
-  color: rgba(255,255,255,0.95);
+  color: var(--text-dark);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -305,7 +312,7 @@ html, body {
 
 .doc-specialty {
   font-size: 11px;
-  color: rgba(255,255,255,0.4);
+  color: var(--text-light);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -318,25 +325,22 @@ html, body {
   gap: 6px;
   padding: 8px 12px;
   background-color: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.5);
-  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  color: var(--text-medium);
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
   width: 100%;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
 .btn-logout:hover {
-  background-color: rgba(192, 22, 44, 0.15);
-  border-color: rgba(192, 22, 44, 0.45);
-  color: #fda4af;
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
-/* =============================================
-   MAIN CONTENT AREA
-   ============================================= */
 .main-content {
   flex: 1 1 0;
   display: flex;
@@ -344,34 +348,21 @@ html, body {
   overflow-y: auto;
   min-width: 0;
   height: 100%;
+  background: var(--bg-subtle);
 }
 
 /* Top Bar */
 .top-bar {
-  height: 64px;
+  height: 90px;
   background-color: var(--bg-card);
-  /* Subtle red-to-teal gradient bottom border line */
-  border-bottom: none;
-  box-shadow: 0 1px 0 0 var(--border-color);
-  background-image: linear-gradient(var(--bg-card), var(--bg-card)),
-                    linear-gradient(90deg, var(--red) 0%, #0e7490 50%, var(--border-color) 100%);
+  border-bottom: 1px solid var(--border-color);
   background-clip: padding-box;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32px;
+  padding: 0 40px;
   flex-shrink: 0;
-  box-shadow: var(--shadow-xs);
-}
-
-.top-bar::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--red) 0%, #0e7490 40%, var(--border-color) 100%);
-  opacity: 0.6;
 }
 
 .top-bar-left {
@@ -391,10 +382,11 @@ html, body {
 }
 
 .page-title {
-  font-size: 18px;
-  font-weight: 700;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
   color: var(--text-dark);
-  letter-spacing: -0.2px;
+  letter-spacing: 0;
 }
 
 .top-bar-right {
@@ -407,8 +399,8 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background-color: var(--success-bg);
-  color: var(--success);
+  background-color: #f0fdf4;
+  color: #047857;
   font-size: 12px;
   font-weight: 700;
   padding: 5px 12px;
@@ -434,17 +426,91 @@ html, body {
   color: var(--text-light);
   font-weight: 600;
   padding: 5px 12px;
-  background: var(--bg-subtle);
+  background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: 20px;
 }
 
 /* Page Content Viewport */
 .content-viewport {
-  padding: 28px 32px;
+  padding: 40px 40px;
   flex: 1 1 0;
   width: 100%;
   overflow-y: auto;
+}
+
+@media (max-width: 980px) {
+  html, body {
+    overflow: auto;
+  }
+
+  .app-container {
+    height: auto;
+    min-height: 100vh;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: visible;
+  }
+
+  .sidebar-menu {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 12px;
+  }
+
+  .menu-section-label,
+  .sidebar-divider {
+    display: none;
+  }
+
+  .menu-item {
+    flex: 0 0 auto;
+  }
+
+  .menu-link {
+    white-space: nowrap;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+  .main-content {
+    height: auto;
+    overflow: visible;
+  }
+
+  .top-bar {
+    height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+  }
+
+  .top-bar-right {
+    flex-wrap: wrap;
+  }
+
+  .content-viewport {
+    padding: 24px;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-bar {
+    padding: 16px;
+  }
+  .content-viewport {
+    padding: 16px;
+  }
 }
 
 /* =============================================

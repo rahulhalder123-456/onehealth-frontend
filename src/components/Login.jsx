@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { authApi, setToken } from '../services/api';
 
 export default function Login({ onLoginSuccess, showNotification }) {
-  const [email, setEmail] = useState('sarah.carter@onehealth.com');
+  const [email, setEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [otpValues, setOtpValues] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
@@ -17,12 +17,11 @@ export default function Login({ onLoginSuccess, showNotification }) {
     setLoading(true);
     setError('');
     try {
-      const result = await authApi.sendOtp(email);
+      await authApi.sendOtp(email);
       setOtpSent(true);
       showNotification({
         title: 'OTP Sent',
-        message: 'Check your email or use the development code.',
-        code: result.devCode,
+        message: 'Check your email for the verification code.',
       });
     } catch (requestError) {
       setError(requestError.message);
@@ -68,18 +67,19 @@ export default function Login({ onLoginSuccess, showNotification }) {
             <div className="login-brand-icon">+</div>
             <span className="login-logo">One<span>Health</span></span>
           </div>
-          <p className="login-tagline">Doctor Portal | Tanaya | Andro | Ritefood</p>
+          <p className="login-tagline">Doctor Portal</p>
           <div className="login-divider" />
         </div>
 
-        {error && <div className="login-info-box" style={{ color: '#dc2626' }}>{error}</div>}
+        {error && <div className="login-info-box login-error-box">{error}</div>}
 
         {!otpSent ? (
           <form onSubmit={handleSendOtp}>
             <div className="form-group">
-              <label className="form-label" htmlFor="email-input">Enter Clinical Email Address</label>
+              <label className="form-label" htmlFor="email-input">Clinical Email Address</label>
               <input id="email-input" type="email" className="form-input" value={email}
-                onChange={(event) => setEmail(event.target.value)} disabled={loading} required autoFocus />
+                onChange={(event) => setEmail(event.target.value)} disabled={loading} required autoFocus
+                placeholder="doctor@onehealth.com" />
             </div>
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? 'Sending OTP...' : 'Request OTP Code'}
@@ -112,7 +112,7 @@ export default function Login({ onLoginSuccess, showNotification }) {
         )}
 
         <div className="login-info-box">
-          Doctors are pre-registered by OneHealth administrators. Development login uses OTP <strong>123456</strong>.
+          Sign in with your registered OneHealth doctor account.
         </div>
       </div>
     </div>
